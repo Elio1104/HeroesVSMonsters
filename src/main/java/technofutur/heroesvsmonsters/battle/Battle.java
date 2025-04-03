@@ -32,7 +32,23 @@ public class Battle {
         }
     }
 
-    private void transferLoot() {
+    public Hero getHero() {
+        return hero;
+    }
+
+    public Monster getMonster() {
+        return monster;
+    }
+
+    public void heroAttack() {
+        hero.attack(monster);
+    }
+
+    public void monsterAttack() {
+        monster.attack(hero);
+    }
+
+    public void transferLoot() {
         Loot loot = monster.getLootDrop().getLoot();
         int amount = monster.getLootDrop().getAmount();
         hero.addItemToInventory(loot, amount);

@@ -11,4 +11,13 @@ public class Orca extends Monster{
         this.bonusStrength = 1;
         this.race = MonsterRace.fromString("ORCA");
     }
+
+    public Orca(int posX, int posY) {
+        super(Loot.GOLD, Dice.roll(6));
+        this.bonusEndurance = 0;
+        this.bonusStrength = 1;
+        this.race = MonsterRace.fromString("ORCA");
+        this.posX = posX;
+        this.posY = posY;
+    }
 }

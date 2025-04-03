@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.shape.Rectangle?>
+
+<?import javafx.geometry.Insets?>
+<GridPane xmlns="http://javafx.com/javafx/17.0.6" xmlns:fx="http://javafx.com/fxml/1" fx:controller="technofutur.heroesvsmonsters.menu.gameMenu.CheckerboardController" fx:id="gridPane" alignment="CENTER">
+
+    <padding>
+        <Insets top="30" right="15" bottom="15" left="15" />
+    </padding>
+
+    <children>
+
+    </children>
+</GridPane>

@@ -23,6 +23,9 @@ public abstract class Character implements Faction, Race {
     protected boolean isAlive;
     protected Race race;
 
+    protected int posX;
+    protected int posY;
+
     public Character() {
         this.name = getClass().getSimpleName();
         this.strength = Dice.bestOf(6, 3, 4);
@@ -164,5 +167,21 @@ public abstract class Character implements Faction, Race {
 
     public void setCurrent_health(int current_health) {
         this.current_health = current_health;
+    }
+
+    public int getPosX() {
+        return posX;
+    }
+
+    public void setPosX(int posX) {
+        this.posX = posX;
+    }
+
+    public int getPosY() {
+        return posY;
+    }
+
+    public void setPosY(int posY) {
+        this.posY = posY;
     }
 }

@@ -12,4 +12,13 @@ public class Wolf extends Monster {
         this.bonusStrength = 0;
         this.race = MonsterRace.fromString("WOLF");
     }
+
+    public Wolf(int posX, int posY) {
+        super(Loot.LEATHER, Dice.roll(4));
+        this.bonusEndurance = 0;
+        this.bonusStrength = 0;
+        this.race = MonsterRace.fromString("WOLF");
+        this.posX = posX;
+        this.posY = posY;
+    }
 }

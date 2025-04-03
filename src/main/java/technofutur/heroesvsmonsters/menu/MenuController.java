@@ -2,89 +2,80 @@ package technofutur.heroesvsmonsters.menu;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Rectangle2D;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import technofutur.heroesvsmonsters.battle.Battle;
 import technofutur.heroesvsmonsters.character.heroes.Dwarf;
 import technofutur.heroesvsmonsters.character.heroes.Hero;
 import technofutur.heroesvsmonsters.character.heroes.Human;
-import technofutur.heroesvsmonsters.character.monsters.Monster;
-import technofutur.heroesvsmonsters.character.monsters.Dragon;
-import technofutur.heroesvsmonsters.character.monsters.Orca;
-import technofutur.heroesvsmonsters.character.monsters.Wolf;
-import technofutur.heroesvsmonsters.utils.Color;
+import technofutur.heroesvsmonsters.mapGenerator.MapGenerator;
+import technofutur.heroesvsmonsters.menu.gameMenu.CheckerboardController;
+import technofutur.heroesvsmonsters.menu.gameMenu.LeftMenu;
 
 import java.io.IOException;
-import java.util.Random;
 
 public class MenuController {
 
     @FXML
-    private void handleHumanButton() {
+    private void handleHumanButton() throws IOException {
         Hero player = new Human();
-        //startBattles(player);
-        showStats(player);
+        player.setPosX(8);
+        player.setPosY(8);
+        newStory(player);
     }
 
     @FXML
-    private void handleDwarfButton() {
+    private void handleDwarfButton() throws IOException {
         Hero player = new Dwarf();
-        //startBattles(player);
-        showStats(player);
+        player.setPosX(8);
+        player.setPosY(8);
+        newStory(player);
     }
 
-    private void startBattles(Hero player) {
-        Random random = new Random();
-        int combatCount = 0;
+    private void newStory(Hero hero) throws IOException {
+        Stage stage = new Stage();
+        stage.setTitle("New Story");
 
-        while (player.isAlive()) {
-            Monster monster = getRandomMonster(random);
-            Battle battle = new Battle(player, monster);
-            battle.startBattle();
-            combatCount++;
+        FXMLLoader backgroundLoader = new FXMLLoader(getClass().getResource("/technofutur/heroesvsmonsters/fxml/background.fxml"));
+        StackPane root = backgroundLoader.load();
 
-            if (player.isAlive()) {
-                player.rest();
-                System.out.println(player);
-                System.out.println(player.getInventory());
-            }
-        }
+        LeftMenu leftMenuObj = new LeftMenu(hero);
+        VBox leftMenu = leftMenuObj.getLeftMenu();
+        leftMenu.setAlignment(Pos.CENTER);
 
-        System.out.println(Color.black("GAME OVER"));
-        System.out.println(Color.black("Number of fights carried out : " + combatCount));
+        VBox middleMenu = new VBox();
+        middleMenu.setId("middleMenu");
+        middleMenu.setAlignment(Pos.CENTER);
+
+        FXMLLoader checkerboardLoader = new FXMLLoader(getClass().getResource("/technofutur/heroesvsmonsters/fxml/checkerboard.fxml"));
+        GridPane checkerboard = checkerboardLoader.load();
+
+        CheckerboardController checkerboardController = checkerboardLoader.getController();
+        checkerboardController.setPlayer(hero);
+
+        middleMenu.getChildren().add(checkerboard);
+
+        VBox rightMenu = new VBox();
+        rightMenu.setId("rightMenu");
+        rightMenu.setAlignment(Pos.CENTER);
+
+        HBox mainContent = new HBox(leftMenu, middleMenu, rightMenu);
+        mainContent.setId("mainContent");
+        mainContent.setPrefSize(1700, 1000);
+
+        leftMenu.setPrefWidth(mainContent.getPrefWidth() * 0.25);
+        middleMenu.setPrefWidth(mainContent.getPrefWidth() * 0.5);
+        rightMenu.setPrefWidth(mainContent.getPrefWidth() * 0.25);
+
+        root.getChildren().add(mainContent);
+
+        stage.setScene(new Scene(root, 1700, 1000));
+        stage.show();
     }
 
-    private Monster getRandomMonster(Random random) {
-        int choice = random.nextInt(3);
-        return switch (choice) {
-            case 0 -> new Dragon();
-            case 1 -> new Orca();
-            case 2 -> new Wolf();
-            default -> throw new IllegalStateException("Unexpected value: " + choice);
-        };
-    }
 
-    private void showStats(Hero hero) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/technofutur/heroesvsmonsters/stats.fxml"));
-            StackPane root = loader.load();
-            StatsController controller = loader.getController();
-            controller.setHero(hero);
-
-            // Définir l'image du joueur
-            ImageView playerImage = (ImageView) root.lookup("#playerImage");
-            playerImage.setImage(hero.getImage());
-
-            Stage stage = new Stage();
-            stage.setTitle("Statistiques et Inventaire");
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 }
