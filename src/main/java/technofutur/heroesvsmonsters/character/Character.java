@@ -99,6 +99,7 @@ public abstract class Character implements Faction, Race {
         return race;
     }
 
+
     @Override
     public String toString() {
         return String.format(
@@ -119,5 +120,49 @@ public abstract class Character implements Faction, Race {
                 Color.GREEN, Color.RESET, race,
                 Color.RESET
         );
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
+    public void setRace(Race race) {
+        this.race = race;
+    }
+
+    public void setFactionType(FactionType factionType) {
+        this.factionType = factionType;
+    }
+
+    public void setEndurance(int endurance) {
+        this.endurance = endurance;
+    }
+
+    public int getBonusEndurance() {
+        return bonusEndurance;
+    }
+
+    public void setBonusEndurance(int bonusEndurance) {
+        this.bonusEndurance = bonusEndurance;
+    }
+
+    public int getBonusStrength() {
+        return bonusStrength;
+    }
+
+    public void setBonusStrength(int bonusStrength) {
+        this.bonusStrength = bonusStrength;
+    }
+
+    public void setStrength(int strength) {
+        this.strength = strength;
+    }
+
+    public int getCurrent_health() {
+        return current_health;
+    }
+
+    public void setCurrent_health(int current_health) {
+        this.current_health = current_health;
     }
 }

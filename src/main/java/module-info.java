@@ -14,4 +14,5 @@ module technofutur.heroesvsmonster {
     opens technofutur.heroesvsmonsters to javafx.fxml;
     exports technofutur.heroesvsmonsters;
     opens technofutur.heroesvsmonsters.menu to javafx.fxml;
+    exports technofutur.heroesvsmonsters.menu;
 }

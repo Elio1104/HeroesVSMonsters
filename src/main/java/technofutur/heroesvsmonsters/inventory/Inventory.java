@@ -18,6 +18,22 @@ public class Inventory {
         lootList.put(loot, lootList.get(loot) + amount);
     }
 
+    public void removeLoot(Loot loot, int amount) {
+        if (lootList.get(loot) >= amount) {
+            lootList.put(loot, lootList.get(loot) - amount);
+        } else {
+            System.out.println(Color.red("Not enough " + loot.name() + " in inventory"));
+        }
+    }
+
+    public int getLootAmount(Loot loot) {
+        return lootList.get(loot);
+    }
+
+    public HashMap<Loot, Integer> getLootList() {
+        return lootList;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

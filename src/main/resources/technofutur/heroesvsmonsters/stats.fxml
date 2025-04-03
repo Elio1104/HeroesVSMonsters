@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Pos?>
+
+<StackPane xmlns="http://javafx.com/javafx/17.0.6" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="technofutur.heroesvsmonsters.menu.StatsController">
+
+    <!-- Image de fond -->
+    <ImageView fitWidth="1200" fitHeight="1000" preserveRatio="false">
+        <Image url="@fantasyBackground.jpg" />
+    </ImageView>
+
+    <!-- Contenu principal -->
+    <VBox alignment="CENTER" spacing="20">
+        <padding>
+            <Insets top="30" right="30" bottom="30" left="30" />
+        </padding>
+
+        <!-- Cadre pour les statistiques -->
+        <VBox alignment="CENTER" spacing="10" style="-fx-background-color: rgba(0, 0, 0, 0.5); -fx-background-radius: 10; -fx-padding: 20;">
+            <Label text="Statistiques du personnage" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #FFD700;"/>
+            <GridPane fx:id="statsGrid" hgap="10" vgap="10" alignment="CENTER"/>
+
+            <ImageView fx:id="playerImage" fitWidth="200" fitHeight="200" preserveRatio="true"/>
+
+            <Label text="Inventaire" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #FFD700;"/>
+            <VBox fx:id="inventoryBox" spacing="5" alignment="CENTER"/>
+        </VBox>
+    </VBox>
+
+</StackPane>

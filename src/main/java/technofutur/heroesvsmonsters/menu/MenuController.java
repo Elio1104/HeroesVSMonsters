@@ -1,6 +1,13 @@
 package technofutur.heroesvsmonsters.menu;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.Scene;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import technofutur.heroesvsmonsters.battle.Battle;
 import technofutur.heroesvsmonsters.character.heroes.Dwarf;
 import technofutur.heroesvsmonsters.character.heroes.Hero;
@@ -11,6 +18,7 @@ import technofutur.heroesvsmonsters.character.monsters.Orca;
 import technofutur.heroesvsmonsters.character.monsters.Wolf;
 import technofutur.heroesvsmonsters.utils.Color;
 
+import java.io.IOException;
 import java.util.Random;
 
 public class MenuController {
@@ -18,13 +26,15 @@ public class MenuController {
     @FXML
     private void handleHumanButton() {
         Hero player = new Human();
-        startBattles(player);
+        //startBattles(player);
+        showStats(player);
     }
 
     @FXML
     private void handleDwarfButton() {
         Hero player = new Dwarf();
-        startBattles(player);
+        //startBattles(player);
+        showStats(player);
     }
 
     private void startBattles(Hero player) {
@@ -56,5 +66,25 @@ public class MenuController {
             case 2 -> new Wolf();
             default -> throw new IllegalStateException("Unexpected value: " + choice);
         };
+    }
+
+    private void showStats(Hero hero) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/technofutur/heroesvsmonsters/stats.fxml"));
+            StackPane root = loader.load();
+            StatsController controller = loader.getController();
+            controller.setHero(hero);
+
+            // Définir l'image du joueur
+            ImageView playerImage = (ImageView) root.lookup("#playerImage");
+            playerImage.setImage(hero.getImage());
+
+            Stage stage = new Stage();
+            stage.setTitle("Statistiques et Inventaire");
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
