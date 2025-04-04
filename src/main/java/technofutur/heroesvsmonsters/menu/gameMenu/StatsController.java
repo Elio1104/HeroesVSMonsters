@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import technofutur.heroesvsmonsters.character.heroes.Hero;
+import technofutur.heroesvsmonsters.character.monsters.Monster;
 import technofutur.heroesvsmonsters.utils.StringUtils;
 
 public class StatsController {
@@ -28,4 +29,29 @@ public class StatsController {
         valueLabel.setStyle("-fx-text-fill: #FFD700; -fx-font-size: 18px;");
         statsGrid.addRow(statsGrid.getRowCount(), keyLabel, valueLabel);
     }
+
+    public void redraw(Hero hero) {
+        statsGrid.getChildren().clear();
+        setHero(hero);
+    }
+
+    public void setMonster(Monster monster) {
+        addStatRow("Name :", monster.getName());
+        addStatRow("Health :", monster.getCurrentHealth() + " / " + monster.getHealth());
+        addStatRow("Strength :", monster.getStrength() + " + " + monster.getBonusStrength());
+        addStatRow("Endurance :", monster.getEndurance() + " + " + monster.getBonusEndurance());
+        addStatRow("Race :", StringUtils.capitalizeFirstLetter(monster.getRace().toString()));
+        addStatRow("Faction :", StringUtils.capitalizeFirstLetter(monster.getFactionType().toString()));
+        addStatRow("Alive :", monster.isAlive() ? "Yes" : "No");
+    }
+
+    public void redraw(Monster monster) {
+        statsGrid.getChildren().clear();
+        setMonster(monster);
+    }
+
+    public void clear() {
+        statsGrid.getChildren().clear();
+    }
+
 }

@@ -18,13 +18,16 @@ public class CheckerboardController {
     private Hero player;
 
     public CheckerboardController() {
-        System.out.println("CheckerboardController");
         this.mapGenerator = new MapGenerator();
     }
 
     @FXML
     public void initialize() {
-        System.out.println("initialize");
+        drawMap();
+    }
+
+    public void drawMap() {
+        gridPane.getChildren().clear();
         int size = 15;
         double rectSize = 40;
 
@@ -78,5 +81,9 @@ public class CheckerboardController {
         System.out.println("setPlayer");
         this.player = player;
         mapGenerator.setPlayer(player);
+    }
+
+    public MapGenerator getMapGenerator() {
+        return mapGenerator;
     }
 }

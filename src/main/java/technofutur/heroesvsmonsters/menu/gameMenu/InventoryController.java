@@ -18,4 +18,9 @@ public class InventoryController {
             inventoryBox.getChildren().add(itemLabel);
         }
     }
+
+    public void redraw(Hero hero) {
+        inventoryBox.getChildren().clear();
+        setHero(hero);
+    }
 }

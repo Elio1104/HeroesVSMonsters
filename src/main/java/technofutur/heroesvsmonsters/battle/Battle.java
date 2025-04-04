@@ -54,4 +54,17 @@ public class Battle {
         hero.addItemToInventory(loot, amount);
         System.out.println(Color.cyan(hero.getName() + " received " + amount + " " + loot.name()));
     }
+
+    public void restHero() {
+        hero.rest();
+        System.out.println(Color.green(hero.getName() + " is resting and recovering health."));
+    }
+
+    public boolean isMonsterAlive() {
+        return monster.isAlive();
+    }
+
+    public boolean isHeroAlive() {
+        return hero.isAlive();
+    }
 }

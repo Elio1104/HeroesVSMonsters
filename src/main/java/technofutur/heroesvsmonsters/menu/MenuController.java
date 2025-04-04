@@ -12,19 +12,23 @@ import javafx.stage.Stage;
 import technofutur.heroesvsmonsters.character.heroes.Dwarf;
 import technofutur.heroesvsmonsters.character.heroes.Hero;
 import technofutur.heroesvsmonsters.character.heroes.Human;
-import technofutur.heroesvsmonsters.mapGenerator.MapGenerator;
 import technofutur.heroesvsmonsters.menu.gameMenu.CheckerboardController;
+import technofutur.heroesvsmonsters.menu.gameMenu.GamepadController;
 import technofutur.heroesvsmonsters.menu.gameMenu.LeftMenu;
+import technofutur.heroesvsmonsters.menu.gameMenu.RightMenu;
 
 import java.io.IOException;
 
 public class MenuController {
+    public static LeftMenu leftMenuObj;
+    public static RightMenu rightMenuObj;
+    public static VBox middleMenu;
 
     @FXML
     private void handleHumanButton() throws IOException {
         Hero player = new Human();
-        player.setPosX(8);
-        player.setPosY(8);
+        player.setPosX(7);
+        player.setPosY(7);
         newStory(player);
     }
 
@@ -43,7 +47,7 @@ public class MenuController {
         FXMLLoader backgroundLoader = new FXMLLoader(getClass().getResource("/technofutur/heroesvsmonsters/fxml/background.fxml"));
         StackPane root = backgroundLoader.load();
 
-        LeftMenu leftMenuObj = new LeftMenu(hero);
+        leftMenuObj = new LeftMenu(hero);
         VBox leftMenu = leftMenuObj.getLeftMenu();
         leftMenu.setAlignment(Pos.CENTER);
 
@@ -59,8 +63,16 @@ public class MenuController {
 
         middleMenu.getChildren().add(checkerboard);
 
-        VBox rightMenu = new VBox();
-        rightMenu.setId("rightMenu");
+        FXMLLoader gamepadLoader = new FXMLLoader(getClass().getResource("/technofutur/heroesvsmonsters/fxml/gamepad.fxml"));
+        VBox gamepad = gamepadLoader.load();
+        GamepadController gamepadController = gamepadLoader.getController();
+        gamepadController.setMapGenerator(checkerboardController.getMapGenerator());
+        gamepadController.setCheckerboardController(checkerboardController);
+
+        middleMenu.getChildren().add(gamepad);
+
+        rightMenuObj = new RightMenu();
+        VBox rightMenu = rightMenuObj.getRightMenu();
         rightMenu.setAlignment(Pos.CENTER);
 
         HBox mainContent = new HBox(leftMenu, middleMenu, rightMenu);

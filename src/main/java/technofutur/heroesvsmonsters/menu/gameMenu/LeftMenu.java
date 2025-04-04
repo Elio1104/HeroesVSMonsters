@@ -8,9 +8,13 @@ import technofutur.heroesvsmonsters.character.heroes.Hero;
 import java.io.IOException;
 
 public class LeftMenu {
-    VBox leftMenu;
+    private VBox leftMenu;
+    private StatsController statsController;
+    private InventoryController inventoryController;
+    private Hero hero;
 
     public LeftMenu(Hero hero) throws IOException {
+        this.hero = hero;
         leftMenu = new VBox();
         leftMenu.setId("leftMenu");
 
@@ -37,7 +41,7 @@ public class LeftMenu {
     private VBox statsLoader(Hero hero) throws IOException {
         FXMLLoader statsLoader = new FXMLLoader(getClass().getResource("/technofutur/heroesvsmonsters/fxml/stats.fxml"));
         VBox statsRoot = statsLoader.load();
-        StatsController statsController = statsLoader.getController();
+        statsController = statsLoader.getController();
         statsController.setHero(hero);
 
         return statsRoot;
@@ -46,9 +50,21 @@ public class LeftMenu {
     private VBox inventoryLoader(Hero hero) throws IOException {
         FXMLLoader inventoryLoader = new FXMLLoader(getClass().getResource("/technofutur/heroesvsmonsters/fxml/inventory.fxml"));
         VBox inventoryRoot = inventoryLoader.load();
-        InventoryController inventoryController = inventoryLoader.getController();
+        inventoryController = inventoryLoader.getController();
         inventoryController.setHero(hero);
 
         return inventoryRoot;
+    }
+
+    public void setHero(Hero hero) {
+        this.hero = hero;
+    }
+
+    public void updateStats() {
+        statsController.redraw(hero);
+    }
+
+    public void updateInventory() {
+        inventoryController.redraw(hero);
     }
 }
